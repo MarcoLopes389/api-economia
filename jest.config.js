@@ -6,6 +6,7 @@ const { resolve } = require('path')
 const root = resolve(__dirname)
 
 module.exports = {
+  testTimeout: 30000,
 
   rootDir: root,
 
