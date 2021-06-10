@@ -18,6 +18,7 @@
   "author": "Marco Lopes",
   "license": "ISC",
   "dependencies": {
+    "algorithmia": "^0.3.10",
     "axios": "^0.21.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",

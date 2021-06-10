@@ -4,7 +4,7 @@ const router = express.Router()
 const mongoose = require('mongoose')
 require('../models/Moedas.model')
 const Moeda = mongoose.model('Moedas')
-const descritor = require('../crawllers/Descritor')
+const descritor = require('../crawllers/wikipediaInfos')
 const api = require('../apis/apimoeda')
 
 router.get('/moeda/instrucoes', (req, res) => {
@@ -33,12 +33,13 @@ router.get('/moeda/:moeda', async (req, res) => {
   if (moeda) {
     return res.json(moeda)
   } else {
-    const descricao = await descritor(req.params.moeda)
-    const novamoeda = await Moeda.create({
+    const descricao = await descritor({"articleName": req.params.moeda,
+    "lang": "pt-br"})
+      const novamoeda = await Moeda.create({
       moeda: req.params.moeda,
       descricao: descricao
-    })
-    return res.json(novamoeda)
+    }) 
+    return res.json(descricao)
   }
 })
 
