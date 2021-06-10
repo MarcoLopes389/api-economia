@@ -1,14 +1,20 @@
 const { Schema, model } = require('mongoose')
 
 const Moedas = new Schema({
-  moeda: {
+  coin: {
     type: String,
     required: true,
     unique: true
   },
-  descricao: {
+  description: {
     type: String,
-    required: true
+    required: true,
+    unique: true
+  },
+  resume: {
+    type: String,
+    required: true,
+    unique: true
   }
 })
 

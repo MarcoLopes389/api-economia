@@ -34,12 +34,13 @@ router.get('/moeda/:moeda', async (req, res) => {
     return res.json(moeda)
   } else {
     const descricao = await descritor({"articleName": req.params.moeda,
-    "lang": "pt-br"})
+    "lang": "pt"})
       const novamoeda = await Moeda.create({
-      moeda: req.params.moeda,
-      descricao: descricao
+      coin: req.params.moeda,
+      description: descricao.content,
+      resume: descricao.summary
     }) 
-    return res.json(descricao)
+    return res.json(novamoeda)
   }
 })
 
@@ -49,8 +50,8 @@ router.get('/moedas', async (req, res) => {
     return res.json(moedas)
   } else {
     return res.status(404).json({
-      erro: 404,
-      descricao: 'Não existem moedas registradas no banco de dados ainda'
+      err: 404,
+      description: 'Não existem moedas registradas no banco de dados ainda'
     })
   }
 })
