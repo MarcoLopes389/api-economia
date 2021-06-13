@@ -29,7 +29,7 @@ router.get('/valor/:moeda/:dias', async (req, res) => {
 })
 
 router.get('/moeda/:moeda', async (req, res) => {
-  const moeda = await Moeda.findOne({ moeda: req.params.moeda })
+  const moeda = await Moeda.findOne({ coin: req.params.moeda })
   if (moeda) {
     return res.json(moeda)
   } else {

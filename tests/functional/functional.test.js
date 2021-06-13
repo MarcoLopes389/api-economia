@@ -56,13 +56,13 @@ describe('Funcionalidades essenciais funcionando corretamente', () => {
   })
 
   test('Retornando dados pedidos', async () => {
-    const Moeda = await mongoose.model('Moedas')
+    const Moeda = mongoose.model('Moedas')
     const { body, status } = await supertest(app).get('/moeda/euro')
-    const dados = await Moeda.findOne({ moeda: 'euro' })
+    const dados = await Moeda.findOne({ coin: 'euro' })
 
     expect(status).toBe(200)
-    expect(body.descricao).toBe(dados.descricao)
-    expect(body.moeda).toBe(dados.moeda)
+    expect(body.description).toBe(dados.description)
+    expect(body.coin).toBe(dados.coin)
   }, 30000)
 
   test('Retornando dados esperados das APIs', async () => {
