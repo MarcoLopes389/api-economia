@@ -4,9 +4,15 @@ const api = require('../apis/brapi')
 
 router.get('/cotas/:acao/:interval/:range', async (req, res) => {
   const { interval, range, acao } = req.params
-  const resposta = await api.get(`/quote/${acao}?interval=${interval}&range=${range}`)
 
-  return res.json(resposta.data)
+  try {
+    const resposta = await api.get(`/quote/${acao}?interval=${interval}&range=${range}`)
+    return res.json(resposta.data)
+  } catch {
+    return res.status(400).json({
+      err: "Envie dados válidos"
+    })
+  }
 })
 
 router.get('/cotas/:acao', async (req, res) => {

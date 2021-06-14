@@ -66,11 +66,24 @@ describe('Funcionalidades essenciais funcionando corretamente', () => {
   }, 30000)
 
   test('Retornando dados esperados das APIs', async () => {
-    const resultado = await brapi.get('/AERI3')
+    const resultado = await brapi.get('/quote/AERI3')
     if (resultado.data) {
       expect(resultado.data).toEqual(retorno)
     }
   }, 30000)
+
+  test('Se for enviado conversão de moeda inválida irá retornar status 400', async () => {
+    const { status } = await supertest(app).get('/valor/ee')
+
+    expect(status).toBe(400)
+  })
+
+  test('Se nenhum parâmetro válido for especificado retorna 400', async () => {
+    const { status } = await supertest(app).get('/valor/g/w')
+
+    expect(status).toBe(400)
+  })
+
   afterAll(() => {
     mongoose.connection.close()
   })

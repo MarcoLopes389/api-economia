@@ -9,23 +9,43 @@ const api = require('../apis/apimoeda')
 
 router.get('/moeda/instrucoes', (req, res) => {
   return res.json({
-    pesquisando_moedas: 'Use /moedadesejada para retonar informações sobre',
-    obs: 'moedas que tem nomes genéricos ou muitos países usam, use /moeda_nacionalidade ou /moeda_(moeda)'
+    searching: 'Use /moedadesejada para retonar informações sobre',
+    obs: 'moedas que tem nomes genéricos ou muitos países usam, use /moeda(moeda)'
   })
 })
 
 router.get('/valor/:conversao', async (req, res) => {
   const { conversao } = req.params
-  const resposta = await api.get(`/last/${conversao}`)
-
-  return res.json(resposta.data)
+  if(!conversao){
+    return res.json({
+      err: "Especifique as moedas para conversão"
+    })
+  }
+  try {
+    const resposta = await api.get(`/last/${conversao}`)
+    return res.json(resposta.data)
+  } catch {
+    return res.status(400).json({
+      err: "Especifique uma coversão válida"
+    })
+  }
 })
 
 router.get('/valor/:moeda/:dias', async (req, res) => {
   const { moeda, dias } = req.params
-  const resposta = await api.get(`/json/daily/${moeda}/${dias}`)
-
-  return res.json(resposta.data)
+  if(!moeda || !dias) {
+    return res.status(400).json({
+      err: "Especifique os parâmetros"
+    })
+  }
+  try {
+    const resposta = await api.get(`/json/daily/${moeda}/${dias}`)
+    return res.json(resposta.data)
+  } catch {
+    return res.status(400).json({
+      err: "Especifique informações válidas"
+    })
+  }
 })
 
 router.get('/moeda/:moeda', async (req, res) => {
@@ -35,13 +55,13 @@ router.get('/moeda/:moeda', async (req, res) => {
   } else {
     const descricao = await descritor({"articleName": req.params.moeda,
     "lang": "pt"})
-      const novamoeda = await Moeda.create({
+    const novamoeda = await Moeda.create({
       keySearch: req.params.moeda.toLowerCase(),
       coin: descricao.title,
       description: descricao.content,
       resume: descricao.summary
     }) 
-    return res.json(novamoeda)
+  return res.json(novamoeda)
   }
 })
 

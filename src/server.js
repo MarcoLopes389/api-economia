@@ -19,4 +19,11 @@ mongoose.connect('mongodb://localhost/apieconomia', {
 app.use('/', moedas)
 app.use('/', cotacoes)
 
+app.use((req, res, next) => {
+  return res.status(404).json({
+    status: 404,
+    err: "Não foi encontrado nenhuma rota"
+  })
+})
+
 module.exports = app

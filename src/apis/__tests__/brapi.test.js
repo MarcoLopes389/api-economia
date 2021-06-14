@@ -43,7 +43,7 @@ nock('https://brapi.ga/')
 
 describe('APIs retornando o desejado', () => {
   test('Brapi enviando dados de uma ação', async () => {
-    const resposta = await brapi.get('/AERI3')
+    const resposta = await brapi.get('/quote/AERI3')
 
     expect(resposta.data).toEqual(dados)
   })
