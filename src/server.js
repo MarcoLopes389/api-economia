@@ -16,6 +16,24 @@ mongoose.connect('mongodb://localhost/apieconomia', {
   console.log('%c Conectado', 'color: red')
 })
 
+app.get('/', (req, res) => {
+  return res.json({
+    language: "pt-br",
+    instructions: {
+      coin: {
+        value: "Digite /moeda/sua-conversao",
+        info: "Digite /moeda/sua-moeda e se for uma palavra genérica coloque '(moeda)' na frente",
+        all: "Digite /moedas"
+      },
+      actions: {
+        value: "Digite /cotas/sua-acao",
+        intervalValue: "Digite /cotas/sua-acao/seu-intervalo/dias",
+        available: "Digite /cotas/disponiveis"
+      }
+    }
+  })
+})
+
 app.use('/', moedas)
 app.use('/', cotacoes)
 

@@ -79,7 +79,7 @@ describe('Funcionalidades essenciais funcionando corretamente', () => {
   })
 
   test('Se nenhum parâmetro válido for especificado retorna 400', async () => {
-    const { status } = await supertest(app).get('/valor/g/w')
+    const { status } = await supertest(app).get('/valor/g')
 
     expect(status).toBe(400)
   })

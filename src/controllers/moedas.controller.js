@@ -7,13 +7,6 @@ const Moeda = mongoose.model('Moedas')
 const descritor = require('../crawllers/wikipediaInfos')
 const api = require('../apis/apimoeda')
 
-router.get('/moeda/instrucoes', (req, res) => {
-  return res.json({
-    searching: 'Use /moedadesejada para retonar informações sobre',
-    obs: 'moedas que tem nomes genéricos ou muitos países usam, use /moeda(moeda)'
-  })
-})
-
 router.get('/valor/:conversao', async (req, res) => {
   const { conversao } = req.params
   if(!conversao){
