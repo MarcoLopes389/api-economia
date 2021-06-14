@@ -1,6 +1,11 @@
 const { Schema, model } = require('mongoose')
 
 const Moedas = new Schema({
+  keySearch: {
+    type: String,
+    required: true,
+    unique: true
+  },
   coin: {
     type: String,
     required: true,

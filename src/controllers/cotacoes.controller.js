@@ -4,7 +4,7 @@ const api = require('../apis/brapi')
 
 router.get('/cotas/:acao/:interval/:range', async (req, res) => {
   const { interval, range, acao } = req.params
-  const resposta = await api.get(`/${acao}?interval=${interval}&range=${range}`)
+  const resposta = await api.get(`/quote/${acao}?interval=${interval}&range=${range}`)
 
   return res.json(resposta.data)
 })
@@ -12,8 +12,14 @@ router.get('/cotas/:acao/:interval/:range', async (req, res) => {
 router.get('/cotas/:acao', async (req, res) => {
   const { acao } = req.params
 
-  const resposta = await api.get(`/${acao}`)
+  const resposta = await api.get(`/quote/${acao}`)
   return res.json(resposta.data)
+})
+
+router.get('/cotas/disponveis', async (req, res) => {
+  const resposta = await api.get('/available')
+
+  return res.json(resposta)
 })
 
 module.exports = router

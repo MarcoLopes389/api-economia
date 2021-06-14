@@ -1,4 +1,4 @@
-var Algorithmia = require("algorithmia");
+const Algorithmia = require("algorithmia");
 const apiKey = require('../../apiKey.json').apiKey
 
 async function wikipedia (pesquisa) {

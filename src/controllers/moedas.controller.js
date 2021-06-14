@@ -29,14 +29,15 @@ router.get('/valor/:moeda/:dias', async (req, res) => {
 })
 
 router.get('/moeda/:moeda', async (req, res) => {
-  const moeda = await Moeda.findOne({ coin: req.params.moeda })
+  const moeda = await Moeda.findOne({ keySearch: req.params.moeda.toLowerCase() })
   if (moeda) {
     return res.json(moeda)
   } else {
     const descricao = await descritor({"articleName": req.params.moeda,
     "lang": "pt"})
       const novamoeda = await Moeda.create({
-      coin: req.params.moeda,
+      keySearch: req.params.moeda.toLowerCase(),
+      coin: descricao.title,
       description: descricao.content,
       resume: descricao.summary
     }) 
@@ -54,15 +55,6 @@ router.get('/moedas', async (req, res) => {
       description: 'Não existem moedas registradas no banco de dados ainda'
     })
   }
-})
-
-router.get('/moedas/disponiveis', async (req, res) => {
-  novoarray = []
-  const moedas = await Moeda.find()
-  for (i in moedas) {
-    novoarray.push(moedas[i].moeda)
-  }
-  return res.json(novoarray)
 })
 
 module.exports = router
